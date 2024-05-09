@@ -12,7 +12,6 @@ const   Jogos = () => {
       <p className=' p-4 text-orange-300 text-xl md:text-2xl font-extrabold font-sarabun'>JOGAR</p>
       <h2 className='font-bold text-3xl md:text-5xl'>Os nossos jogos</h2>
       </div>
-      <ChatForm/>
       <GamesCard/>
       <Footer />
     </div>
