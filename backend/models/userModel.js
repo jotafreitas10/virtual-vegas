@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
   dateOfBirth: {type: String, required: true},
   profession: {type: String, default:'Sem atividade profissional'},
   gender: {type: String, default: 'Não especificar'},
-  profileImage: {type: String, default:'https://i.imgur.com/4Gh7wHR.jpeg'},
+  profileImage: {type: String, default:"images/defaultUser.jpg"},
   isAdmin: {type: Boolean, default: false},
 },  {timestamps:true});
 
