@@ -8,7 +8,7 @@ const ToggleSwitch = () => {
     };
   
     return (
-        <label className="flex items-center cursor-pointer">
+      <label className="flex items-center cursor-pointer">
         <div className="relative">
           <input
             type="checkbox"
@@ -16,9 +16,9 @@ const ToggleSwitch = () => {
             checked={checked}
             onChange={handleChange}
           />
-          <div className="toggle__line w-12 h-5 bg-gray-400 rounded-full shadow-inner"></div>
+          <div className={`toggle__line w-12 h-5 rounded-full shadow-inner ${checked ? 'bg-gray-400': 'bg-[#ccb681]'}`}></div>
           <div
-            className={`toggle__dot absolute w-6 h-5 bg-white rounded-full shadow inset-y-0 ${checked ? 'left-0 bg-[#ccb681]' : 'right-0'}`}
+            className={`toggle__dot absolute w-6 h-5 rounded-full shadow inset-y-0 bg-white ${checked ? 'left-0' : 'right-0'}`}
           ></div>
         </div>
       </label>
