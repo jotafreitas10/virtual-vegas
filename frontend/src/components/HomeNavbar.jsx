@@ -52,7 +52,7 @@ const HomeNavbar = () => {
             <li className='p-4 cursor-pointer'><Link to='/suporte'>Suporte</Link></li>
         </ul>
         <img src={userInfo.profileImage} alt='Profile Pic' onClick={handleProfileMenu} className='p-4 cursor-pointer hidden md:flex h-[90px] w-[90px] rounded-full' />
-        <div className={!profileMenuOpen ? 'fixed flex-col hidden md:flex justify-between text-sm right-0 top-0 w-[35%] h-full border-l border-gray-600 bg-[#ffe29e] ease-in-out duration-500 z-40' : 'fixed flex-col flex justify-between text-sm right-[-100%] top-0 w-[60%] h-full border-l border-r-gray-900 bg-[#ffe29e] ease-in-out duration-500 z-40'}>
+        <div className={profileMenuOpen ? 'fixed flex-col hidden md:flex justify-between text-sm right-0 top-0 w-[35%] h-full border-l border-gray-600 bg-[#ffe29e] ease-in-out duration-500 z-40' : 'fixed flex-col flex justify-between text-sm right-[-100%] top-0 w-[60%] h-full border-l border-r-gray-900 bg-[#ffe29e] ease-in-out duration-500 z-40'}>
           <div className="flex items-center">
             <img src={userInfo.profileImage} alt="Profile Pic" className="h-[70px] w-[70px] rounded-full mx-auto my-4 ml-4" />
             <p className="xl:text-3xl lg:text-2xl text-xl font-sarabun font-bold cursor-default" id='username'>{userInfo.username}</p>

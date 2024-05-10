@@ -13,10 +13,25 @@ It includes the following:
 - Custom middleware to check JSON web token and store in cookie
 - Custom error middleware
 - React Toastify notifications
+- Open AI chat assistent
 
 ## Usage
 
 - Create a MongoDB database and obtain your `MongoDB URI` - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
+
+### Env Variables
+
+Rename the `.env.example` file to `.env` and add the following
+
+```
+NODE_ENV = development
+PORT = 5000
+MONGO_URI = your mongodb uri
+JWT_SECRET = 'abc123'
+chaveApi = chatgpt api key
+```
+
+Change the JWT_SECRET to what you want
 
 ### Install Dependencies (frontend & backend)
 
@@ -29,7 +44,6 @@ npm install
 ### Run
 
 ```
-
 # Run frontend (:3000) & backend (:5000)
 npm run dev
 
