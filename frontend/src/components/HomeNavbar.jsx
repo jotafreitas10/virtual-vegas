@@ -81,10 +81,10 @@ const HomeNavbar = () => {
             <p className='sm:text-3xl text-2xl font-sarabun font-bold mx-auto cursor-default'>VirtualVegas</p>
           </div>
           <ul className='uppercase p-4'>
-            <li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Início</li>
+            <li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'><Link to='/home'>Início</Link></li>
             <Link to='/jogos'><li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Jogos</li></Link>
-            <li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Sobre</li>
-            <li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Suporte</li>
+            <li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'><Link to='/sobre'>Sobre</Link></li>
+            <li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'><Link to='/suporte'>Suporte</Link></li>
             <li className='p-4 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer' onClick={handleProfileMenuSM}>Perfil</li>
           </ul>
           <div className={profileMenuOpenSM ? 'fixed flex-col md:hidden flex justify-between text-sm left-0 top-0 w-[35%] h-full border-r border-gray-600 bg-[#ffe29e] ease-in-out duration-500 z-40' : 'fixed flex-col flex justify-between text-sm left-[-100%] top-0 w-[60%] h-full border-l border-r-gray-900 bg-[#ffe29e] ease-in-out duration-500 z-40'}>
