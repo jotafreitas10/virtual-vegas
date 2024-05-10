@@ -3,6 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import openai from 'openai';
 import openaiRoutes from './routes/openaiRoutes.js';
+
 dotenv.config();
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
@@ -39,8 +40,9 @@ app.use('/api/openai', openaiRoutes);
 */
 app.get('/', (req, res) => res.send('Server is ready'));
 
-
 app.use(notFound);
 app.use(errorHandler);
 
+
 app.listen(port, () => console.log(`Server started on port ${port}`));
+
