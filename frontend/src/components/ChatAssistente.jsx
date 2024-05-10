@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import io from 'socket.io-client'; // Importe o cliente Socket.io
 import botImage from "../assets/bot.png";
 import userImage from "../assets/defaultUser.jpg";
-import ChatApp from './Socket';
 
-const socket = io(); // Crie uma instância do cliente Socket.io
-
-const ChatForm = () => {
+export const ChatForm = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
@@ -23,29 +19,12 @@ const ChatForm = () => {
             const response = await axios.post('/api/openai/chat-completions', { message });
             const newCompletion = response.data.completion;
 
-            const updatedMessages = [...messages, { text: message, isBot: false, image: userImage }, { text: newCompletion, isBot: true, image: botImage }];
-
-            // Envie a mensagem para o servidor via Socket.io
-            socket.emit('message', { text: message });
-
-            setMessages(updatedMessages);
+            setMessages([...messages, { text: message, isBot: false, image: userImage }, { text: newCompletion, isBot: true, image: botImage }]);
             setMessage('');
         } catch (error) {
             console.error('Erro ao enviar solicitação para a API da OpenAI:', error);
         }
     };
-
-    useEffect(() => {
-        // Ouvir mensagens do servidor
-        socket.on('adminMessage', (data) => {
-            setMessages([...messages, { text: data.text, isBot: true, image: botImage }]);
-        });
-
-        // Limpar o ouvinte quando o componente for desmontado
-        return () => {
-            socket.off('adminMessage');
-        };
-    }, [messages]);
 
     return (
         <div className='max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8'>
@@ -84,7 +63,6 @@ const ChatForm = () => {
                     </button>
                 </form>
             </div>
-            <ChatApp />
         </div>
     );
 }
