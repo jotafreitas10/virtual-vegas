@@ -62,8 +62,7 @@ const HomeNavbar = () => {
           </div>
           <ul className="uppercase p-4">
             <Link to={`/${userInfo.username}/editar-perfil`}><li className="p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer">Editar Perfil</li></Link>
-            <li className='p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer'>Estatísticas</li>
-            <li className='p-4 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer'>Definições</li>
+            <li className='p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer'><Link to='/definicoes'>Definições</Link></li>
           </ul>
           <div className="uppercase p-4 mt-auto">
             <div onClick={logoutHandler} className="flex items-center justify-between p-4 border-t border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer">
@@ -91,8 +90,7 @@ const HomeNavbar = () => {
             <AiOutlineClose onClick={handleProfileMenuSM} className="size-6" />
             <ul className="uppercase p-4">
               <Link to={`/${userInfo.username}/editar-perfil`}><li className="p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer">Editar Perfil</li></Link>
-              <li className='p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer'>Estatísticas</li>
-              <li className='p-4 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer'>Definições</li>
+              <li className='p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer'><Link to='/definicoes'>Definições</Link></li>
             </ul>
             <div className="uppercase p-4 mt-auto">
               <div onClick={logoutHandler} className="flex items-center justify-between p-4 border-t border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer">

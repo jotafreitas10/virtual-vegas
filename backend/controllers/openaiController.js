@@ -1,7 +1,8 @@
 import { OpenAI } from 'openai';
 
+const openaiApi = new OpenAI({apiKey:'sk-proj-9Tp3k95XUrimLnPT9PfzT3BlbkFJVPhxMc3LPt8MwuUuQWeG'}); // Use OpenAI diretamente
+
 async function getChatCompletion(message) {
-    const openaiApi = new OpenAI({apiKey: process.env.chaveApi});
     try {
         const completion = await openaiApi.chat.completions.create({
             messages: [{ role: "system", content: message }],

@@ -19,9 +19,9 @@ import Suporte from './pages/Suporte';
 import PrivateRoute from './components/PrivateRoute';
 import AssistenteVirtual from './pages/AssistenteVirtual';
 import PerguntasFrequentes from './pages/PerguntasFrequentes';
+import Definicoes from './pages/Definicoes';
 import { ToastContainer } from  "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminRoute from './components/AdminRoute';
 
 function App() {
   const {userInfo} = useSelector((state)=>state.auth);
@@ -48,6 +48,7 @@ function App() {
             <Route path='suporte/assistentevirtual' element={<AssistenteVirtual/>}/>
             <Route path='suporte/perguntasfrequentes' element={<PerguntasFrequentes/>}/>
             <Route path='adminpanel' element={<AdmPanel/>}/>
+            <Route path='definicoes' element={<Definicoes/>}/>
           </Route>
         </Routes>
         <ToastContainer position='top-left' autoClose={4000} rtl={false} newestOnTop={true} closeOnClick pauseOnFocusLoss theme='dark' />
