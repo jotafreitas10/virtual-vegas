@@ -30,13 +30,12 @@ export const ChatForm = () => {
         <div className='max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8'>
             <div className="justify-between font-sarabun">
                 <h1 className="text-3xl md:text-4xl font-extrabold mt-10 ml-5 md:ml-0 mb-1 md:mb-4">FALE CONNOSCO!</h1>
-                <p className="text-xl font-light hidden md:block ">
+                <p className="text-xl font-light hidden md:block "style={{ textAlign: 'justify' }}>
                     Bem-vindo ao nosso assistente virtual. Está aqui para ajudá-lo com qualquer dúvida ou problema que você possa ter. Por favor, sinta-se à vontade para fazer perguntas ou solicitar assistência relacionada aos nossos serviços.
                 </p>
             </div>
             <div className="flex flex-col items-center">
-            <p className="text-3xl font-bold md:mt-10 hidden md:block">ChatBot</p>
-                <div className="w-96 h-64 mt-0 md:mt-6 border bg-gray-100 rounded-lg overflow-y-scroll mb-4 p-4 relative">
+                <div className="w-96 h-64 mt-0 md:mt-10 border bg-gray-100 rounded-lg overflow-y-scroll mb-4 p-4 relative">
                     {messages.map((msg, index) => (
                         <div key={index} className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'}`}>
                             <div className={`rounded p-2 mb-2 ${msg.isBot ? 'rounded border bg-[#e4cb90]' : 'rounded border bg-white'}`}>
