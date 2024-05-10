@@ -221,6 +221,7 @@ const updateUserProfileImage = asyncHandler(async (req, res) => {
   }
 });
 
+
 export {
   authUser,
   registerUser,

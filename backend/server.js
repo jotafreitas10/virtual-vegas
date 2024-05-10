@@ -3,7 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import openai from 'openai';
 import openaiRoutes from './routes/openaiRoutes.js';
-
+import adminRoutes from './routes/adminRoutes.js';
 dotenv.config();
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
@@ -24,6 +24,7 @@ app.use(express.static('public'));
 
 app.use('/api/users', userRoutes);
 app.use('/api/openai', openaiRoutes);
+app.use('/api/admin', adminRoutes);
 
 /*if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();

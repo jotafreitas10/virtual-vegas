@@ -127,12 +127,7 @@ const EditProfile = () => {
     }, []);
 
     const handleGoBack = () => {
-        if (initialLocation) {
-            navigateTo(initialLocation.pathname);
-        } else {
-            // Se não houver localização inicial, apenas vá para a raiz
-            navigateTo('/jogos');
-        }
+        navigateTo('/home');
     };
     return (
         <div className='xl:relative'>

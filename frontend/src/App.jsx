@@ -21,18 +21,20 @@ import AssistenteVirtual from './pages/AssistenteVirtual';
 import PerguntasFrequentes from './pages/PerguntasFrequentes';
 import { ToastContainer } from  "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminRoute from './components/AdminRoute';
 
 function App() {
   const {userInfo} = useSelector((state)=>state.auth);
   return (
       <div>
         <Routes>
+          {/* Rotas públicas */}
           <Route path="" element={<Inicio/>}/>
           <Route path="login" element={<Login/>} />
           <Route path="register" element={<Register/>} />
           <Route path="reset-password" element={<ResetPassword/>} />
+          {/* Rotas privadas para utilizadores autenticados */}
           <Route path='' element={<PrivateRoute/>}>
-            <Route path='adminpanel' element={<AdmPanel/>}/>
             <Route path="home" element={<Home />}/>
             <Route path="jogos" element={<Jogos/>}/>
             <Route path={`/${userInfo?.username}/editar-perfil`} element={<EditProfile/>}/>
@@ -45,6 +47,7 @@ function App() {
             <Route path="jogos/slots" element={<Slots/>}/>
             <Route path='suporte/assistentevirtual' element={<AssistenteVirtual/>}/>
             <Route path='suporte/perguntasfrequentes' element={<PerguntasFrequentes/>}/>
+            <Route path='adminpanel' element={<AdmPanel/>}/>
           </Route>
         </Routes>
         <ToastContainer position='top-left' autoClose={4000} rtl={false} newestOnTop={true} closeOnClick pauseOnFocusLoss theme='dark' />

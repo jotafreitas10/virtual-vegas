@@ -4,13 +4,58 @@ import { useSelector } from 'react-redux';
 import BgAdm from '../assets/casinowp.jpg';
 import { IoChevronBackOutline } from "react-icons/io5";
 import { MdPersonSearch } from "react-icons/md";
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const PainelAdmin = () => {
     const navigate = useNavigate();
+    const {userInfo} = useSelector((state)=> state.auth)
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [searchValue, setSearchValue] = useState('');
+
     const handleGoBack = () => {
         navigate(-1);
     };
-    const {userInfo} = useSelector((state)=> state.auth)
+
+    const handleSearchUser = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.get(`/api/admin/search?username=${searchValue}`);
+            setSelectedUser(response.data);
+            toast.info(`${selectedUser.name} selecionado com sucesso.`)
+        } catch (error) {
+            if (error.response) {
+                toast.error(`${error.response.data.message}`);
+                setSelectedUser(null);
+            } else {
+                toast.error('Utilizador não encontrado. Tente novamente.')
+                setSelectedUser(null);
+            }
+        }
+    };
+
+    const handleEditUser = () => {
+        if (selectedUser) {
+            navigate(`/editar-usuario/${selectedUser._id}`);
+        } else {
+            toast.info('Selecione um utilizador para editar.');
+        }
+    };
+
+    const handleDeleteUser = async () => {
+        if (selectedUser) {
+            try {
+                await axios.delete(`/api/admin/${selectedUser._id}`);
+                toast.success('Utilizador apagado com sucesso.');
+                setSelectedUser(null);
+            } catch (error) {
+                console.log(error);
+                toast.error('Erro ao tentar apagar utilizador.');
+            }
+        } else {
+            toast.info('Selecione um utilizador para apagar.');
+        }
+    };
 
     return (
         <div>
@@ -52,15 +97,15 @@ const PainelAdmin = () => {
                             <p className='text-3xl font-inter font-extrabold'>Gestão de contas</p>
                             <div>
                                 <div className='relative mt-4 mb-8'>
-                                    <input type="text" className="block w-[325px] py-2.3 px-0 text-lg bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:text-white focus:border-slate-300 peer" placeholder="" name="username" />
+                                    <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} className="block w-[325px] py-2.3 px-0 text-lg bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:text-white focus:border-slate-300 peer" placeholder="" name="username" />
                                     <label htmlFor="" className="absolute text-lg duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-slate-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">Nome de utilizador</label>
-                                    <MdPersonSearch className='absolute top-1 right-0 w-6 h-6' />
+                                    <MdPersonSearch onClick={handleSearchUser} className='absolute cursor-pointer top-1 right-0 w-6 h-6' />
                                 </div>
-                                <p className='text-center'>[nome do utilizador]</p>
-                                <button className='text-white font-semibold hover:bg-[#7e704d] bg-[#bda774] mb-4 mt-6 text-[18px] py-2 rounded transition-colors duration-300 w-full'>Editar</button>
+                                <p className='text-center'>{selectedUser ? selectedUser.name : 'Nenhum utilizador selecionado'}</p>
+                                <button onClick={handleEditUser} className='text-white font-semibold hover:bg-[#7e704d] bg-[#bda774] mb-4 mt-6 text-[18px] py-2 rounded transition-colors duration-300 w-full'>Editar</button>
                                 <div className='justify-between flex'>
                                     <button className='w-[47%] text-white font-semibold hover:bg-[#7e704d] bg-transparent text-[18px] py-2 rounded transition-colors duration-300'>Suspender</button>
-                                    <button className='w-[47%] text-white font-semibold hover:bg-[#ff1111a3] bg-transparent text-[18px] py-2 rounded transition-colors duration-300'>Apagar</button>
+                                    <button onClick={handleDeleteUser} className='w-[47%] text-white font-semibold hover:bg-[#ff1111a3] bg-transparent text-[18px] py-2 rounded transition-colors duration-300'>Apagar</button>
                                 </div>
                             </div>
                         </div>

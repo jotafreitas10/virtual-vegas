@@ -9,7 +9,7 @@ import {
   updateUserProfileImage,
   getUserProfileImage,
 } from '../controllers/userController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect} from '../middleware/authMiddleware.js';
 import multer from 'multer';
 
 const router = express.Router();
