@@ -40,7 +40,7 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-        <div className='flex w-full md:max-w-[1240px] justify-between border-double border-t-[5px] border-black'>
+        <div className='flex w-full md:max-w-[1240px] justify-between border-t border-t-3 border-black'>
           <div>
             <ul className="flex ">
               <li className="md:p-3 p-2 text-sm md:text-base"><Link to='/politicadeprivacidade'>Política de Privacidade</Link></li>
