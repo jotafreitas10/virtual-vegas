@@ -7,8 +7,9 @@ const Roleta = () => {
   return (
     <div>
       <Header title="Roleta" />
-      <br></br>
-      <br></br>
+      <div>
+      <iframe className='max-w-[1240px] mx-auto' src="https://free-slots.games/games/reel_slots/3r_cool/index.html" title="Cool 777 - free slot " width="640" height="480" ></iframe>
+      </div>
       <Footer />
     </div>
   );
