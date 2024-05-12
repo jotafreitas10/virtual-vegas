@@ -8,7 +8,7 @@ const Roleta = () => {
     <div>
       <Header title="Roleta" />
       <div>
-      <iframe className='max-w-[1240px] mx-auto' src="https://free-slots.games/games/reel_slots/3r_cool/index.html" title="Cool 777 - free slot " width="640" height="480" ></iframe>
+      <iframe className='max-w-[1240px] p-6 mt-10 mb-10 mx-auto' src="https://free-slots.games/playtechslots/playtech1.php?s=RouletteDeluxe/index.html" title="Roulette Deluxe - free slot " width="640" height="480" ></iframe>
       </div>
       <Footer />
     </div>
