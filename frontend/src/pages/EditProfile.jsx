@@ -167,8 +167,8 @@ const EditProfile = () => {
         navigateTo('/home');
     };
     return (
-        <div className='xl:relative'>
-            <img src={BgEditP} alt="Background Image" className="absolute inset-0 w-full h-full object-cover z-0" />
+        <div className='relative'>
+            <img src={BgEditP} alt="Background Image" className="absolute inset-0  w-full h-full object-cover z-0" />
             <div className="absolute inset-0 bg-black opacity-50"></div>
             <div className="absolute inset-0 z-0 bg-gradient-to-b from-black via-transparent to-black opacity-80"></div>
             <div className="xl:flex hidden items-center flex-col text-white font-roboto">
