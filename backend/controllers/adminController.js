@@ -63,4 +63,11 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { getUsers, searchUserByUsername, updateUser, deleteUser };
+// @desc    Verificar se é admin
+// @route   GET /api/admin/is-admin
+// @access  Private/Admin
+const verifyAdmin = asyncHandler(async(req, res) => {
+  res.status(200).json({ isAdmin: true });
+});
+
+export { getUsers, searchUserByUsername, updateUser, deleteUser, verifyAdmin };
