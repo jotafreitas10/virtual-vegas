@@ -1,32 +1,35 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const gameSessionSchema = mongoose.Schema({
+const { Schema } = mongoose;
+
+const gameSessionSchema = new Schema({
   gameName: { type: String, required: true },
   startTime: { type: Date, required: true },
   endTime: { type: Date, default: null },
 });
 
-const userSchema = mongoose.Schema({
+const userSchema = new Schema({
   name: { type: String, required: true },
-  username: {type: String, required: true, unique: true},
-  email: { type: String, required: true,  unique: true} ,
-  password: { type: String, required: true},
-  dateOfBirth: {type: String, required: true},
-  profession: {type: String, default:'Sem atividade profissional'},
-  gender: {type: String, default: 'Não especificar'},
-  profileImage: {type: String, default:"images/defaultUser.jpg"},
-  isAdmin: {type: Boolean, default: false},
-  gameSessions: [gameSessionSchema], // Para registrar sessões de jogo
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  dateOfBirth: { type: String, required: true },
+  profession: { type: String, default: 'Sem atividade profissional' },
+  gender: { type: String, default: 'Não especificar' },
+  profileImage: { type: String, default: "images/defaultUser.jpg" },
+  isAdmin: { type: Boolean, default: false },
+  gameSessions: [gameSessionSchema],
   gameStats: [{
     gameName: { type: String, required: true },
-    totalPlayTime: { type: Number, default: 0 }, // Tempo total gasto em cada jogo (em minutos)
-    lastPlayed: { type: Date, default: Date.now() }, // Última vez que o jogo foi jogado
+    totalPlayTime: { type: Number, default: 0 },
+    lastPlayed: { type: Date, default: Date.now() },
   }],
-  totalPlayTime: { type: Number, default: 0 }, // Tempo total gasto jogando no geral (em minutos)
-},  {timestamps:true});
+  totalPlayTime: { type: Number, default: 0 },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date }
+}, { timestamps: true });
 
-// Match user entered password to hashed password in database
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
