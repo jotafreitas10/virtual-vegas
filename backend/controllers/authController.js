@@ -4,19 +4,19 @@ import crypto from 'crypto';
 
 // Configuração do Nodemailer
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'dddd78436@gmail.com',
-      pass: '12345678.BOMDIA'
-    }
-  });
-  
-  export default transporter;
+  host: 'smtp.ethereal.email',
+  port: 587,
+  auth: {
+      user: 'bernard.mclaughlin@ethereal.email',
+      pass: '1KU5pTuhb9zRsmZynM'
+  }
+});
+
 
 // Função para gerar e-mail de recuperação de senha
 export const sendPasswordResetEmail = async (email, token) => {
   const mailOptions = {
-    from: 'dddd78436@gmail.com',
+    from: 'bernard.mclaughlin@ethereal.email',
     to: email,
     subject: 'Redefinir Palavra-passe',
     text: `Clique no link para redefinir sua palavra-passe: http://localhost:3000/reset-password/${token}`
@@ -48,3 +48,5 @@ export const requestPasswordReset = async (req, res) => {
     res.status(500).json({ message: 'Erro interno do servidor.' });
   }
 };
+
+  export default transporter;

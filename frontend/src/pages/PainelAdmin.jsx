@@ -17,6 +17,22 @@ const PainelAdmin = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [searchValue, setSearchValue] = useState('');
 
+    const [stats, setStats] = useState(null);
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const response = await axios.get('/api/site/stats');
+                setStats(response.data);
+            } catch (error) {
+                console.error('Erro ao obter estatísticas do site:', error);
+            }
+        };
+
+        fetchStats();
+    }, []);
+
+
     const handleGoBack = () => {
         navigate(-1);
     };
@@ -86,11 +102,15 @@ const PainelAdmin = () => {
                         <div className='flex flex-col justify-between w-[60%] font-inter font-extrabold my-4 bg-black border border-black rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70'>
                             <p className='text-3xl'>Estatísticas</p>
                             <ul>
-                                <li className="py-4 border-b border-white lg:text-lg text-md">Número de utilizadores registados</li>
-                                <li className='py-4 border-b border-white lg:text-lg text-md'>Número de utilizadores online</li>
-                                <li className='py-4 border-b border-white lg:text-lg text-md'>Tempo médio de estadia no site</li>
-                                <li className='py-4 border-b border-white lg:text-lg text-md'>Jogo mais jogado</li>
-                                <li className='py-4 lg:text-lg text-md'>Stat 5</li>
+                                <li className="py-4 border-b flex justify-between border-white lg:text-lg text-md">
+                                    <span>Número de utilizadores registados</span>
+                                    <span>{stats?.totalUsers}</span></li>
+                                <li className='py-4 border-b flex justify-between border-white lg:text-lg text-md'>
+                                    <span>Jogo mais jogado</span>
+                                    <span>{stats?.mostPlayedGame}</span></li>
+                                <li className='py-4 border-b border-white lg:text-lg text-md'>Estatistica 3</li>
+                                <li className='py-4 border-b border-white lg:text-lg text-md'>Estatistica 4</li>
+                                <li className='py-4 lg:text-lg text-md'>Estatistica 5</li>
                             </ul>
                         </div>
                         <div className='flex flex-col justify-between items-center w-[35%] my-4 bg-black border border-black rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70'>

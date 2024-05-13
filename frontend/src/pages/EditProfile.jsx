@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import BgEditP from '../assets/rolettetable.jpg'
-import { IoChevronBackOutline, IoImagesOutline } from "react-icons/io5";
+import { IoChevronBackOutline, IoImagesOutline, IoChevronForwardOutline } from "react-icons/io5";
 import { IoMdEye, IoMdStats } from "react-icons/io";
 import { FaUserEdit, FaUserLock } from "react-icons/fa";
 import { MdOutlineClear, MdOutlineCheck } from "react-icons/md";
@@ -16,8 +16,6 @@ import { validateEmail, validateDateOfBirth, validateName, validateUsername, val
 const EditProfile = () => {
     const navigateTo = useNavigate();
     const dispatch = useDispatch();
-    const location = useLocation();
-    const [initialLocation, setInitialLocation] = useState(null);
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
@@ -26,6 +24,7 @@ const EditProfile = () => {
     const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
     const [file, setFile] = useState();
     const [activeTab, setActiveTab] = useState('stats');
 
@@ -53,6 +52,18 @@ const EditProfile = () => {
         fetchUserStats(); // Chame a função aqui
     }, [userInfo]);
 
+    useEffect(() => {
+        const checkAdmin = async () => {
+            try {
+                const response = await axios.get('/api/admin/is-admin');
+                setIsAdmin(response.data.isAdmin);
+            } catch (error) {
+                toast.error('Erro ao verificar administrador:', error);
+            }
+        };
+        checkAdmin();
+    }, [userInfo]);
+
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
@@ -67,7 +78,13 @@ const EditProfile = () => {
     }, [userInfo.email, userInfo.name, userInfo.username, userInfo.dateOfBirth, userInfo.profession, userInfo.gender]);
 
 
-
+    const redirectAdmin = () => {
+        if (isAdmin) {
+            navigateTo('/adminpanel');
+        } else {
+            toast.error('Não tem permissões suficientes.')
+        }
+    };
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -145,10 +162,6 @@ const EditProfile = () => {
             }
         }
     }
-
-    useEffect(() => {
-        setInitialLocation(location);
-    }, []);
 
     const handleGoBack = () => {
         navigateTo('/home');
@@ -263,19 +276,19 @@ const EditProfile = () => {
                     ) : (
                         <div className='flex flex-col  w-[60%] font-inter font-extrabold my-4 bg-black border border-black rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70'>
                             <p className='text-3xl'>Estatísticas pessoais</p>
-                            <div className="flex flex-col py-3">
+                            <div className="flex flex-col py-3 h-full">
                                 {userStats ? (
-                                    <ul>
-                                        <li className="flex justify-between py-3 border-b border-white lg:text-lg text-md">
-                                            <span>Tempo total gasto jogando:</span>
-                                            <span>{userStats.totalPlayTime} minutos</span>
+                                    <ul className='h-full flex flex-col justify-between'>
+                                        <li className="flex justify-between mt-3 pb-6 border-b border-white lg:text-xl">
+                                            <span>Tempo total gasto jogando</span>
+                                            <span>{userStats.totalPlayTime.toFixed(2)} minutos</span>
                                         </li>
-                                        <li className="flex justify-between py-3 border-b border-white lg:text-lg text-md">
-                                            <span>Jogo mais jogado:</span>
+                                        <li className="flex justify-between mt-3 pb-6 border-b border-white lg:text-xl">
+                                            <span>Jogo mais jogado</span>
                                             <span>{userStats.mostPlayedGame}</span>
                                         </li>
-                                        <li className="flex justify-between py-3 lg:text-lg text-md">
-                                            <span>Último jogo jogado:</span>
+                                        <li className="flex justify-between mt-3 pb-6 lg:text-xl">
+                                            <span>Último jogo jogado</span>
                                             <span>{userStats.lastPlayedGame}</span>
                                         </li>
                                     </ul>
@@ -287,9 +300,16 @@ const EditProfile = () => {
                     )}
 
                 </div>
-                <div className='flex flex-col justify-between w-[1200px] mb-16 bg-black border border-black rounded-md p-4 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70'>
-                    <button className='backdrop-filter text-white font-semibold hover:bg-[#7e704d] bg-transparent text-[18px] py-2 rounded transition-colors duration-300'>Painel de Administrador</button>
-                </div>
+                {isAdmin ? (
+                    <div className='flex justify-end w-[1200px] mb-8 backdrop-blur-none'>
+                        <div className='flex items-center cursor-pointer' onClick={redirectAdmin}>
+                            <p className='text-2xl font-inter font-medium'>Painel de Administração</p>
+                            <IoChevronForwardOutline className="h-5 w-5 ml-3" />
+                        </div>
+                    </div>
+                ) : (
+                    <div></div>
+                )}
             </div>
             <div className='xl:hidden flex flex-col px-4 pb-4 text-white font-roboto'>
                 <div className='items-start flex justify-between w-full mb-4 mt-16 backdrop-blur-none'>
@@ -412,6 +432,16 @@ const EditProfile = () => {
                         )}
                     </div>
                 </div>
+                {isAdmin ? (
+                    <div className='flex justify-end w-full mb-4 mt-16 backdrop-blur-none'>
+                        <div className='flex items-center cursor-pointer' onClick={redirectAdmin}>
+                            <p className='text-2xl font-inter font-medium'>Painel de Administrador</p>
+                            <IoChevronForwardOutline className="h-5 w-5 ml-3" />
+                        </div>
+                    </div>
+                ) : (
+                    <div></div>
+                )}
             </div>
         </div>
     )

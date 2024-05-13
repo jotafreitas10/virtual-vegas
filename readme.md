@@ -18,6 +18,7 @@ It includes the following:
 ## Usage
 
 - Create a MongoDB database and obtain your `MongoDB URI` - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
+- Obtain your OpenAI API Key and follow the instructions `OpenAI API Key` - [OpenAI API Docs](https://platform.openai.com/docs/introduction)
 
 ### Env Variables
 

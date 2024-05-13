@@ -17,6 +17,7 @@ import TermosdeUso from './pages/TermosdeUso';
 import Sobre from './pages/Sobre';
 import Suporte from './pages/Suporte';
 import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
 import AssistenteVirtual from './pages/AssistenteVirtual';
 import PerguntasFrequentes from './pages/PerguntasFrequentes';
 import Definicoes from './pages/Definicoes';
@@ -47,8 +48,10 @@ function App() {
             <Route path="jogos/slots" element={<Slots/>}/>
             <Route path='suporte/assistentevirtual' element={<AssistenteVirtual/>}/>
             <Route path='suporte/perguntasfrequentes' element={<PerguntasFrequentes/>}/>
-            <Route path='adminpanel' element={<AdmPanel/>}/>
             <Route path='definicoes' element={<Definicoes/>}/>
+          </Route>
+          <Route path='' element={<AdminRoute/>}>
+            <Route path='adminpanel' element={<AdmPanel/>}/>
           </Route>
         </Routes>
         <ToastContainer position='top-left' autoClose={4000} rtl={false} newestOnTop={true} closeOnClick pauseOnFocusLoss theme='dark' />

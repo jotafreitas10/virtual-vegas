@@ -1,9 +1,9 @@
 import express from 'express';
 import { protect } from '../middleware/authMiddleware.js';
-import { getSiteStats, updateSiteStats } from '../controllers/siteStatsController.js';
+import { getSiteStats } from '../controllers/siteStatsController.js';
 
 const router = express.Router();
 
-router.route('/').get(getSiteStats).put(protect, updateSiteStats);
+router.get('/', protect, getSiteStats);
 
 export default router;
