@@ -2,29 +2,28 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import BgLogin from '../assets/roletaLogin.jpg';
 import { BiUser } from 'react-icons/bi';
-import { AiOutlineUnlock } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const ResetPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/auth/reset-password', { email: email });
-      setMessage(response.data.message);
+      toast.success(response.data.message);
     } catch (error) {
       if (error.response) {
         // O servidor respondeu com um status de erro
-        setMessage(error.response.data.message);
+        toast.error(error.response.data.message);
       } else if (error.request) {
         // A solicitação foi feita, mas não recebeu resposta
-        setMessage('Sem resposta do servidor. Verifique sua conexão com a internet.');
+        toast.error('Sem resposta do servidor. Verifique sua conexão com a internet.');
       } else {
         // Ocorreu um erro ao configurar a solicitação
-        setMessage('Erro ao enviar a solicitação. Tente novamente mais tarde.');
+        toast.error('Erro ao enviar a solicitação. Tente novamente mais tarde.');
       }
     }
   };
@@ -45,7 +44,6 @@ const ResetPassword = () => {
             </div>
             <button type="submit" className="text-white font-semibold hover:bg-[#7e704d] bg-[#bda774] mb-4 mt-6 text-[18px] py-2 rounded-full transition-colors duration-300 w-full">Enviar E-mail de Recuperação</button>
           </form>
-          {message && <p>{message}</p>}
           <div className='text-center'>
             <p>Não tem conta?</p>
             <Link to='/register' className='font-semibold hover:underline'>Registe-se já!</Link>

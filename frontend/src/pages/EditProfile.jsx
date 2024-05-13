@@ -280,15 +280,15 @@ const EditProfile = () => {
                                 {userStats ? (
                                     <ul className='h-full flex flex-col justify-between'>
                                         <li className="flex justify-between mt-3 pb-6 border-b border-white lg:text-xl">
-                                            <span>Tempo total gasto jogando:</span>
+                                            <span>Tempo total gasto jogando</span>
                                             <span>{userStats.totalPlayTime.toFixed(2)} minutos</span>
                                         </li>
                                         <li className="flex justify-between mt-3 pb-6 border-b border-white lg:text-xl">
-                                            <span>Jogo mais jogado:</span>
+                                            <span>Jogo mais jogado</span>
                                             <span>{userStats.mostPlayedGame}</span>
                                         </li>
                                         <li className="flex justify-between mt-3 pb-6 lg:text-xl">
-                                            <span>Último jogo jogado:</span>
+                                            <span>Último jogo jogado</span>
                                             <span>{userStats.lastPlayedGame}</span>
                                         </li>
                                     </ul>

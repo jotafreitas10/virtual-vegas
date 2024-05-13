@@ -1,27 +1,32 @@
 import asyncHandler from 'express-async-handler';
-import SiteStats from '../models/siteStatsModel.js';
+import User from '../models/userModel.js';
 
-// Controlador para recuperar estatísticas gerais do site
+// @desc    Estatisticas gerais do site
+// @route   GET /api/site/stats
+// @access  Private
 const getSiteStats = asyncHandler(async (req, res) => {
-  const siteStats = await SiteStats.findOne();
-  res.json(siteStats);
-});
+  const totalUsers = await User.countDocuments();
 
-// Controlador para atualizar estatísticas gerais do site
-const updateSiteStats = asyncHandler(async (req, res) => {
-  const { newStats } = req.body;
-  let siteStats = await SiteStats.findOne();
 
-  // Se não houver estatísticas no banco de dados, cria um novo documento de estatísticas
-  if (!siteStats) {
-    siteStats = new SiteStats(newStats);
-  } else {
-    // Atualiza as estatísticas existentes
-    siteStats = Object.assign(siteStats, newStats);
+  const users = await User.find();
+  const gameStats = users.map(user => user.gameStats).flat();
+  const gameCountMap = new Map();
+
+  gameStats.forEach(game => {
+      const count = gameCountMap.get(game.gameName) || 0;
+      gameCountMap.set(game.gameName, count + 1);
+  });
+
+  let mostPlayedGame = '';
+  let maxCount = 0;
+  for (const [gameName, count] of gameCountMap.entries()) {
+      if (count > maxCount) {
+          mostPlayedGame = gameName;
+          maxCount = count;
+      }
   }
 
-  await siteStats.save();
-  res.status(200).json({ message: 'Estatísticas gerais do site atualizadas com sucesso' });
+  res.status(200).json({ totalUsers, mostPlayedGame });
 });
 
-export { getSiteStats, updateSiteStats };
+export { getSiteStats };
