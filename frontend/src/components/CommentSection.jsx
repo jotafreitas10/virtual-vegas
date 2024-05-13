@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const CommentSection = () => {
     const [comment, setComment] = useState('');
@@ -22,14 +22,13 @@ const CommentSection = () => {
         // Limpar o input após o envio
         setComment('');
     };
-
     return (
         <div>
             <div className='max-w-[1240px] mx-auto py-8 px-4 bg-white font-sarabun border-b border-opacity-25 border-gray-500'>
                 <h1 className='text-4xl font-bold'>Comentários</h1>
                 <div className='mt-4'>
                     <label htmlFor="commentInput" className={`absolute px-2 ml-1 bg-white text-gray-700 cursor-text transition-transform duration-300 ${isFocused || comment ? '-translate-y-1 scale-75' : 'translate-y-3 scale-100'}`}>
-                        Escreva um comentário
+                        Escreve um comentário
                     </label>
                     <textarea
                         id="commentInput"
@@ -44,10 +43,10 @@ const CommentSection = () => {
                 </div>
             </div>
             <div className='max-w-[1240px] mx-auto py-6 px-4'>
-                <h1 className='text-lg'>[Nome do usuário que comenta]</h1>
+                <h1 className='text-lg'>[Nome do utilizador que comenta]</h1>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default CommentSection;
+export default CommentSection
