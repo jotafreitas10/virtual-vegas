@@ -44,7 +44,7 @@ const Header = ({ title }) => {
       <img src={HeaderIMG} className="object-cover w-full max-h-[500px] md:max-h-[300px]" alt="Header Image" />
       <div className="absolute top-0 left-0 right-0 flex justify-between max-w-[1240px] text-xl h-24 mx-auto items-center px-6 text-white font-roboto">
         <img src={Logo} alt="VirtualVegas Logo" className="h-20 w-20" />
-        <ul className="hidden md:flex"> 
+        <ul className="hidden md:flex">
           <li className=" p-4 cursor-pointer"><Link to='/home'>Início</Link></li>
           <li className=" p-4 cursor-pointer"><Link to='/jogos'>Jogos</Link></li>
           <li className=" p-4 cursor-pointer"><Link to='/sobre'>Sobre</Link></li>
@@ -57,10 +57,10 @@ const Header = ({ title }) => {
             <p className="xl:text-3xl lg:text-2xl text-xl font-sarabun font-bold cursor-default" id='username'>{userInfo.username}</p>
             <div onClick={handleProfileMenu} className="cursor-pointer mx-auto my-4 mr-4">
               <AiOutlineClose className="size-6" />
-            </div>          
+            </div>
           </div>
           <ul className="uppercase p-4">
-            <Link to={`/${userInfo.username}/editar-perfil`}><li className="p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer">Editar Perfil</li></Link>
+            <Link to={`/${userInfo.username}/editar-perfil`}><li className="p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer">Perfil</li></Link>
             <li className='p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer'><Link to='/definicoes'>Definições</Link></li>
           </ul>
           <div className="uppercase p-4 mt-auto">
@@ -71,44 +71,32 @@ const Header = ({ title }) => {
           </div>
         </div>
         <div onClick={handleNav} className='block md:hidden cursor-pointer'>
-          {nav ? <AiOutlineClose className='hover:size-7 ease-in-out duration-300'/> : <AiOutlineMenu className='hover:size-7 ease-in-out duration-300'/>}
+          {nav ? <AiOutlineClose className='hover:size-7 ease-in-out duration-300' /> : <AiOutlineMenu className='hover:size-7 ease-in-out duration-300' />}
         </div>
         <div className={nav ? 'fixed md:hidden flex-col flex justify-between text-sm left-0 top-0 w-[60%] h-full border-r border-gray-600 bg-[#242424] ease-in-out duration-500 z-40' : 'fixed md:hidden flex-col flex justify-between text-sm left-[-100%] top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#242424] ease-in-out duration-500 z-40'}>
           <div className='flex items-center'>
-            <img src={Logo} alt="VirtualVegas Logo" className="h-20 w-20 my-4 ml-4"/>
+            <img src={Logo} alt="VirtualVegas Logo" className="h-20 w-20 my-4 ml-4" />
             <p className='sm:text-3xl text-2xl font-sarabun font-bold mx-auto cursor-default'>VirtualVegas</p>
           </div>
           <ul className='uppercase p-4'>
-            <li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'><Link to='/home'>Início</Link></li>
+            <Link to='/home'><li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Início</li></Link>
             <Link to='/jogos'><li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Jogos</li></Link>
-            <li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'><Link to='/sobre'>Sobre</Link></li>
-            <li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'><Link to='/suporte'>Suporte</Link></li>
-            <li className='p-4 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer' onClick={handleProfileMenuSM}>Perfil</li>
+            <Link to='/sobre'><li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Sobre</li></Link>
+            <Link to='/suporte'><li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Suporte</li></Link>
+            <Link to={`/${userInfo.username}/editar-perfil`}><li className='p-4 border-b border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Perfil</li></Link>
+            <Link to='/definicoes'><li className='p-4 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>Definições</li></Link>
           </ul>
-          <div className={profileMenuOpenSM ? 'fixed flex-col md:hidden flex justify-between text-sm left-0 top-0 w-[35%] h-full border-r border-gray-600 bg-[#242424] ease-in-out duration-500 z-40' : 'fixed flex-col flex justify-between text-sm left-[-100%] top-0 w-[60%] h-full border-l border-r-gray-900 bg-[#242424] ease-in-out duration-500 z-40'}>
-            <AiOutlineClose onClick={handleProfileMenuSM} className="size-6" />
-            <ul className="uppercase p-4">
-              <Link to={`/${userInfo.username}/editar-perfil`}><li className="p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer">Editar Perfil</li></Link>
-              <li className='p-4 border-b border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer'><Link to='/definicoes'>Definições</Link></li>
-            </ul>
-            <div className="uppercase p-4 mt-auto">
-              <div onClick={logoutHandler} className="flex items-center justify-between p-4 border-t border-gray-600 lg:hover:text-xl hover:text-lg lg:text-lg text-md ease-in-out duration-300 cursor-pointer">
-                <p>Terminar Sessão</p>
-                <TbLogout />
-              </div>
-            </div>
-          </div>
           <div className='uppercase p-4 mt-auto'>
             <div onClick={logoutHandler} className='flex items-center justify-between p-4 border-t border-gray-600 sm:hover:text-xl hover:text-lg ease-in-out duration-300 cursor-pointer'>
               <p>Terminar Sessão</p>
-              <TbLogout/>
+              <TbLogout />
             </div>
           </div>
         </div>
       </div>
       <div className='absolute inset-x-0 bottom-2 flex flex-col items-center justify-center'>
         <h1 className="text-center md:text-6xl sm:text-4xl text-3xl mt-6 md:mt-2 font-extrabold text-white">{title}</h1>
-        <BsChevronCompactDown className='text-white text-4xl hover:text-gray-300 transition duration-300 mb-0 md:mb-8 lg:mb-16 mt-0 sm:mt-2 lg:mt-4 size-6 sm:size-8 md:size-10'/>
+        <BsChevronCompactDown className='text-white text-4xl hover:text-gray-300 transition duration-300 mb-0 md:mb-8 lg:mb-16 mt-0 sm:mt-2 lg:mt-4 size-6 sm:size-8 md:size-10' />
       </div>
     </div>
   );

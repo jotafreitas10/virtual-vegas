@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import axios from 'axios';
+import CommentSection from '../components/CommentSection'
 
 const Slots = () => {
   useEffect(() => {
@@ -32,8 +33,9 @@ const Slots = () => {
     <div>
       <Header title="Slots" />
       <div>
-      <iframe className='max-w-[1240px] p-6 mt-10 mb-10 mx-auto' src="https://free-slots.games/playtechslots/playtech1.php?s=JackpotBells/index.html" title="Jackpot Bells - free slot " width="640" height="480" ></iframe>
+      <iframe className='max-w-[1240px] border-[10px] rounded border-[#bda777] mt-10 mb-10 mx-auto' src="https://free-slots.games/playtechslots/playtech1.php?s=JackpotBells/index.html" title="Jackpot Bells - free slot " width="640" height="480" ></iframe>
       </div>
+      <CommentSection/>
       <Footer />
     </div>
   );

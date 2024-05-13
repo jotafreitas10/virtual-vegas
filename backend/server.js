@@ -6,6 +6,7 @@ import openaiRoutes from './routes/openaiRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import userStatsRoutes from './routes/userStatsRoutes.js';
 import siteStatsRoutes from './routes/siteStatsRoutes.js';
+import commentRoutes from './routes/commentRoutes.js';
 dotenv.config();
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
@@ -29,6 +30,7 @@ app.use('/api/openai', openaiRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user/stats', userStatsRoutes);
 app.use('/api/site/stats', siteStatsRoutes);
+app.use('/api/comments', commentRoutes);
 
 /*if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();

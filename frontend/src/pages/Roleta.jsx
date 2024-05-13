@@ -28,16 +28,14 @@ const Roleta = () => {
         console.error('Erro ao encerrar sessão de jogo:', error.message);
       }
     };
-  }, []); 
+  }, []);
   return (
     <div>
       <Header title="Roleta" />
       <div>
-      <iframe className='max-w-[1240px] p-6 mt-10 mb-10 mx-auto' src="https://free-slots.games/playtechslots/playtech1.php?s=RouletteDeluxe/index.html" title="Roulette Deluxe - free slot " width="640" height="480" ></iframe>
+        <iframe className='max-w-[1240px] border-[10px] rounded border-[#bda777] mt-10 mb-10 mx-auto' src="https://free-slots.games/playtechslots/playtech1.php?s=RouletteDeluxe/index.html" title="Roulette Deluxe - free slot " width="640" height="480" ></iframe>
       </div>
-      <div>
-        <CommentSection/>
-      </div>
+      <CommentSection />
       <Footer />
     </div>
   );
