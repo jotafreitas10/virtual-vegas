@@ -102,9 +102,6 @@ const PainelAdmin = () => {
                         </div>
                     </div>
                     <div className='items-start flex justify-between w-[1200px] my-4 backdrop-blur-none'>
-                        <div className='flex flex-col justify-between w-[60%] font-inter font-extrabold my-4 bg-black border border-black rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70'>
-
-                        </div>
                         <div className='flex flex-col justify-between items-center w-[35%] my-4 bg-black border border-black rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70'>
                             <p className='text-3xl font-inter font-extrabold'>Gestão de contas</p>
                             <div>
