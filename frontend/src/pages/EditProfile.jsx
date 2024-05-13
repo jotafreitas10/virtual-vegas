@@ -7,7 +7,9 @@ import { IoMdEye, IoMdStats } from "react-icons/io";
 import { FaUserEdit, FaUserLock } from "react-icons/fa";
 import { MdOutlineClear, MdOutlineCheck } from "react-icons/md";
 import { toast } from 'react-toastify';
+import { Oval } from 'react-loader-spinner';
 import { setCredentials } from '../slices/authSlice';
+import axios from 'axios';
 import { useUpdateUserMutation, useUpdatePasswordMutation, useUpdateUserProfileImageMutation } from '../slices/usersApiSlice';
 import { validateEmail, validateDateOfBirth, validateName, validateUsername, validateProfileImage } from '../utils/validators';
 
@@ -29,9 +31,27 @@ const EditProfile = () => {
 
     const { userInfo } = useSelector((state) => state.auth);
 
-    const [updateProfile, { isLoading }] = useUpdateUserMutation();
+    const [updateProfile] = useUpdateUserMutation();
     const [updatePassword] = useUpdatePasswordMutation();
     const [updateProfileImage] = useUpdateUserProfileImageMutation();
+
+    const [isLoading, setLoading] = useState(false);
+    const [userStats, setUserStats] = useState(null);
+
+    useEffect(() => {
+        setLoading(true);
+        const fetchUserStats = async () => {
+            try {
+                const response = await axios.get('/api/user/stats');
+                setUserStats(response.data);
+            } catch (error) {
+                toast.error('Erro ao obter estatísticas do usuário:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchUserStats(); // Chame a função aqui
+    }, [userInfo]);
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -231,14 +251,29 @@ const EditProfile = () => {
                             <button className='hover:bg-[#7e704d] bg-transparent text-[18px] py-1 rounded transition-colors duration-300'>Cancelar</button>
                         </div>
                     </form>
-                    <div className='flex flex-col justify-between w-[60%] font-inter font-extrabold my-4 bg-black border border-black rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70'>
-                        <p className='text-3xl'>Estatísticas pessoais</p>
-                        <ul>
-                            <li className="py-4 border-b border-white lg:text-lg text-md">Stat 1</li>
-                            <li className='py-4 border-b border-white lg:text-lg text-md'>Stat 2</li>
-                            <li className='py-4 lg:text-lg text-md'>Stat 3</li>
-                        </ul>
-                    </div>
+                    {isLoading ? (
+                        <div className="flex items-center justify-center text-white">
+                            <Oval
+                                type="Oval"
+                                color="#00BFFF"
+                                height={30}
+                                width={30}
+                            />
+                        </div>
+                    ) : (
+                        <div className='flex flex-col justify-between w-[60%] font-inter font-extrabold my-4 bg-black border border-black rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70'>
+                            <p className='text-3xl'>Estatísticas pessoais</p>
+                            {userStats ? (
+                                <ul>
+                                    <li className="py-4 border-b border-white lg:text-lg text-md">Tempo total gasto jogando: {userStats.totalPlayTime} minutos</li>
+                                    <li className='py-4 border-b border-white lg:text-lg text-md'>Jogo mais jogado: {userStats.mostPlayedGame}</li>
+                                    <li className='py-4 lg:text-lg text-md'>Último jogo jogado: {userStats.lastPlayedGame}</li>
+                                </ul>
+                            ) : (
+                                <p className="text-white">Não há estatísticas disponíveis.</p>
+                            )}
+                        </div>
+                    )}
                 </div>
                 <div className='flex flex-col justify-between w-[1200px] mb-16 bg-black border border-black rounded-md p-4 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70'>
                     <button className='backdrop-filter text-white font-semibold hover:bg-[#7e704d] bg-transparent text-[18px] py-2 rounded transition-colors duration-300'>Painel de Administrador</button>

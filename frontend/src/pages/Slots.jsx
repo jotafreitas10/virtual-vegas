@@ -1,9 +1,33 @@
 import React from 'react';
+import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
+import axios from 'axios';
 
 const Slots = () => {
+  useEffect(() => {
+    // Função para iniciar a sessão quando a página é carregada
+    const startSession = async () => {
+      try {
+        await axios.post('/api/user/stats/startsession', { gameName: 'Slots' });
+        console.log('Sessão de jogo iniciada com sucesso');
+      } catch (error) {
+        console.error('Erro ao iniciar sessão de jogo:', error.message);
+      }
+    };
+
+    startSession(); // Iniciar sessão ao carregar a página
+
+    // Função para encerrar a sessão quando o componente é desmontado
+    return async () => {
+      try {
+        await axios.post('/api/user/stats/endsession', { gameName: 'Slots' });
+        console.log('Sessão de jogo encerrada com sucesso');
+      } catch (error) {
+        console.error('Erro ao encerrar sessão de jogo:', error.message);
+      }
+    };
+  }, []); 
   return (
     <div>
       <Header title="Slots" />
