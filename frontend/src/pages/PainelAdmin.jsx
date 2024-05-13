@@ -6,10 +6,14 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import { MdPersonSearch } from "react-icons/md";
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Oval } from 'react-loader-spinner';
+import EditUserProfileModal from '../components/EditUserProfileModal';
 
 const PainelAdmin = () => {
     const navigate = useNavigate();
-    const {userInfo} = useSelector((state)=> state.auth)
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const { userInfo } = useSelector((state) => state.auth)
+    const [isSearching, setIsSearching] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [searchValue, setSearchValue] = useState('');
 
@@ -19,24 +23,28 @@ const PainelAdmin = () => {
 
     const handleSearchUser = async (e) => {
         e.preventDefault();
+        setIsSearching(true);
         try {
             const response = await axios.get(`/api/admin/search?username=${searchValue}`);
             setSelectedUser(response.data);
-            toast.info(`${selectedUser.name} selecionado com sucesso.`)
+            if (response.data) {
+                toast.info(`${response.data.name} selecionado com sucesso.`);
+            }
         } catch (error) {
             if (error.response) {
                 toast.error(`${error.response.data.message}`);
-                setSelectedUser(null);
             } else {
-                toast.error('Utilizador não encontrado. Tente novamente.')
-                setSelectedUser(null);
+                toast.error('Utilizador não encontrado. Tente novamente.');
             }
+            setSelectedUser(null);
+        } finally {
+            setIsSearching(false);
         }
     };
 
     const handleEditUser = () => {
         if (selectedUser) {
-            navigate(`/editar-usuario/${selectedUser._id}`);
+            setIsEditModalOpen(true);
         } else {
             toast.info('Selecione um utilizador para editar.');
         }
@@ -55,6 +63,10 @@ const PainelAdmin = () => {
         } else {
             toast.info('Selecione um utilizador para apagar.');
         }
+    };
+
+    const handleEditModalClose = () => {
+        setIsEditModalOpen(false);
     };
 
     return (
@@ -101,15 +113,36 @@ const PainelAdmin = () => {
                                     <label htmlFor="" className="absolute text-lg duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-slate-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">Nome de utilizador</label>
                                     <MdPersonSearch onClick={handleSearchUser} className='absolute cursor-pointer top-1 right-0 w-6 h-6' />
                                 </div>
-                                <p className='text-center'>{selectedUser ? selectedUser.name : 'Nenhum utilizador selecionado'}</p>
+                                {isSearching ? (
+                                    <div className="flex items-center justify-center text-white">
+                                        <Oval
+                                            type="Oval"
+                                            color="#00BFFF"
+                                            height={30}
+                                            width={30}
+                                        />
+                                    </div>
+                                ) : (
+                                    <p className='text-center'>{selectedUser ? selectedUser.name : 'Nenhum utilizador selecionado'}</p>
+                                )}
                                 <button onClick={handleEditUser} className='text-white font-semibold hover:bg-[#7e704d] bg-[#bda774] mb-4 mt-6 text-[18px] py-2 rounded transition-colors duration-300 w-full'>Editar</button>
                                 <div className='justify-between flex'>
-                                    <button className='w-[47%] text-white font-semibold hover:bg-[#7e704d] bg-transparent text-[18px] py-2 rounded transition-colors duration-300'>Suspender</button>
-                                    <button onClick={handleDeleteUser} className='w-[47%] text-white font-semibold hover:bg-[#ff1111a3] bg-transparent text-[18px] py-2 rounded transition-colors duration-300'>Apagar</button>
+                                    <button onClick={handleDeleteUser} className='w-full text-white font-semibold hover:bg-[#ff1111a3] bg-transparent text-[18px] py-2 rounded transition-colors duration-300'>Apagar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {isEditModalOpen && (
+                        <div className="fixed inset-0 flex items-center justify-center z-50">
+                            <div className="absolute inset-0 bg-black opacity-50"></div>
+                            <div className="relative">
+                                <EditUserProfileModal
+                                    selectedUser={selectedUser}
+                                    onClose={handleEditModalClose}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

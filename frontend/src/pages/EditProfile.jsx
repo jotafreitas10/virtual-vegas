@@ -33,6 +33,10 @@ const EditProfile = () => {
     const [updatePassword] = useUpdatePasswordMutation();
     const [updateProfileImage] = useUpdateUserProfileImageMutation();
 
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
     useEffect(() => {
         setEmail(userInfo.email);
         setName(userInfo.name);
@@ -111,7 +115,7 @@ const EditProfile = () => {
         } else {
             const formData = new FormData();
             formData.append('profileImage', file);
-    
+
             try {
                 const res = await updateProfileImage(formData);
                 dispatch(setCredentials(res.data));
@@ -144,8 +148,10 @@ const EditProfile = () => {
                 <div className="flex justify-between w-[1200px] my-4 bg-black border border-black rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-70 border-opacity-70">
                     <form onSubmit={submitImage} className='w-[35%] justify-center items-center flex flex-col mr-4'>
                         <img src={userInfo.profileImage} alt="Profile Pic" className='rounded-full w-[300px] h-[300px]' />
-                        <input type='file' onChange={(e) => setFile(e.target.files[0])} className='text-white font-semibold hover:bg-[#7e704d] bg-transparent text-[18px] py-2 rounded transition-colors duration-300 w-full'></input>
-                        <button onClick={submitImage} className='font-light font-inter py-2 mt-4'>Confirmar</button>
+                        <input id="file-upload" type='file' onChange={handleFileChange} className='hidden'></input>
+                        {file && <p className="text-white mt-4">{file.name}</p>}
+                        <label htmlFor="file-upload" className='hover:bg-[#bda774] bg-[#7e704d] text-center w-full rounded transition-colors duration-300 font-light font-inter py-2 mt-2 cursor-pointer'>Escolher imagem</label>
+                        <button type="submit" className='hover:bg-[#7e704d] bg-transparent w-full rounded transition-colors duration-300 font-light font-inter py-2 mt-4 cursor-pointer'>Confirmar</button>
                     </form>
                     <div className='w-[65%] ml-4 justify-center flex flex-col font-sarabun'>
                         <p className='text-4xl'>Olá,</p>
@@ -277,8 +283,10 @@ const EditProfile = () => {
                         {activeTab === 'altimage' && (
                             <form onSubmit={submitImage} className='w-full justify-center items-center flex flex-col mr-4'>
                                 <img src={userInfo.profileImage} alt="Profile Pic" className='rounded-full w-[300px] h-[300px]' />
-                                <input type='file' onChange={(e) => setFile(e.target.files[0])} className='font-light font-inter py-2 mt-4'/>
-                                <button onClick={submitImage} className='text-white font-semibold hover:bg-[#7e704d] bg-transparent text-[18px] py-2 rounded transition-colors duration-300 w-full'>Selecionar Foto</button>
+                                <input id="file-upload" type='file' onChange={handleFileChange} className='hidden'></input>
+                                {file && <p className="text-white mt-4">{file.name}</p>}
+                                <label htmlFor="file-upload" className='hover:bg-[#bda774] bg-[#7e704d] text-center max-w-[350px] w-full rounded transition-colors duration-300 font-light font-inter py-2 mt-2 cursor-pointer'>Escolher imagem</label>
+                                <button type="submit" className='hover:bg-[#7e704d] bg-transparent w-full max-w-[350px] rounded transition-colors duration-300 font-light font-inter py-2 mt-4 cursor-pointer'>Confirmar</button>
                             </form>
                         )}
                         {activeTab === 'password' && (
