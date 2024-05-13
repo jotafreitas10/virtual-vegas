@@ -39,7 +39,7 @@ const CommentSection = ({ userName, userProfileImage }) => {
                     ) : (
                         <img src={userInfo.profileImage || userImage} alt="Imagem de Perfil" className="w-10 h-10 rounded-full mb-2" />
                     )}
-                    <h1 className='text-base ml-2'>{userInfo.username}</h1>
+                    <h1 className='text-lg font-bold ml-3 mb-2'>{userInfo.username}</h1>
                     
                 </div>
                 <div className='w-full'>
