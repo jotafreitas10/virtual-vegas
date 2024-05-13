@@ -40,7 +40,7 @@ const PerguntasFrequentes = () => {
                 {respostasVisiveis[index] ? <IoIosRemove className='w-[45px] md:w-[60px] h-[45px] md:h-[60px]'/> : <IoIosAdd className='w-[45px] md:w-[60px] h-[45px] md:h-[60px]'/>}
               </div>
               {respostasVisiveis[index] && (
-                <div className={respostasVisiveis[index] ? 'p-4 text-base md:text-xl bg-zinc-300 mb-6 opacity-100 transition-opacity duration-500' : 'p-4 text-base md:text-xl bg-zinc-300 mb-6 opacity-0 transition-opacity duration-500'}>
+                <div className={respostasVisiveis[index] ? 'p-4 mt-[-20px] text-base md:text-xl bg-zinc-300 mb-6 opacity-100 transition-opacity duration-500' : 'p-4 text-base md:text-xl bg-zinc-300 mb-6 opacity-0 transition-opacity duration-500'}>
                   <p>{respostas[index]}</p>
                 </div>
               )}
